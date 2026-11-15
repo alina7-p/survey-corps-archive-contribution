@@ -6,6 +6,18 @@
     <meta name="description" content="Explore all four Attack on Titan seasons and the Final Chapters with episode ranges and official guides.">
     <meta name="theme-color" content="#1e392a">
     <title>Episode guide | Survey Corps Archive</title>
+    <script>
+      (function () {
+        var root = document.documentElement, theme = "dark", user = null;
+        root.className += " js";
+        try {
+          theme = localStorage.getItem("sca-theme") === "light" ? "light" : "dark";
+          user = JSON.parse(localStorage.getItem("sca-user") || "null");
+        } catch (error) {}
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-auth", user && user.name ? "in" : "out");
+      })();
+    </script>
     <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/fonts.css">
@@ -31,9 +43,20 @@
           <a href="index.html">Home</a>
           <a href="about.html">Lore &amp; factions</a>
           <a href="titans.html">Titan archive</a>
+          <a href="characters.html">Characters</a>
           <a href="episodes.html" aria-current="page">Episodes</a>
           <a href="join.html" class="nav-enlist">Enlist</a>
         </nav>
+        <div class="header-tools">
+          <button class="theme-toggle btn" type="button" aria-label="Switch to light theme" title="Switch colour theme">
+            <span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span>
+          </button>
+          <a class="btn only-guest signin-link" href="signin.html">Sign in</a>
+          <span class="user-chip only-user">
+            <span class="user-name" data-user-name></span>
+            <button class="btn" type="button" data-signout>Sign out</button>
+          </span>
+        </div>
       </div>
     </header>
     <main id="main">
@@ -260,10 +283,13 @@
               <b>Explore</b>
               <a href="about.html">Lore &amp; factions</a>
               <a href="titans.html">The Nine Titans</a>
+              <a href="characters.html">Character database</a>
               <a href="episodes.html">Episode guide</a>
+              <a href="index.html#faq">FAQ</a>
             </div>
             <div>
               <b>Contact &amp; connect</b>
+              <a href="signin.html">Sign in</a>
               <a href="join.html#contact">Contact the archive</a>
               <a href="https://shingeki.tv/" target="_blank" rel="noopener noreferrer">Official anime website ↗</a>
               <a href="https://x.com/anime_shingeki" target="_blank" rel="noopener noreferrer">Official X / Twitter ↗</a>

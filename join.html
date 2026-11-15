@@ -6,6 +6,18 @@
     <meta name="description" content="Create a fictional Survey Corps recruit card and learn more about this student fan archive.">
     <meta name="theme-color" content="#1e392a">
     <title>Enlist with the Scouts | Survey Corps Archive</title>
+    <script>
+      (function () {
+        var root = document.documentElement, theme = "dark", user = null;
+        root.className += " js";
+        try {
+          theme = localStorage.getItem("sca-theme") === "light" ? "light" : "dark";
+          user = JSON.parse(localStorage.getItem("sca-user") || "null");
+        } catch (error) {}
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-auth", user && user.name ? "in" : "out");
+      })();
+    </script>
     <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/fonts.css">
@@ -31,9 +43,20 @@
           <a href="index.html">Home</a>
           <a href="about.html">Lore &amp; factions</a>
           <a href="titans.html">Titan archive</a>
+          <a href="characters.html">Characters</a>
           <a href="episodes.html">Episodes</a>
           <a href="join.html" aria-current="page" class="nav-enlist">Enlist</a>
         </nav>
+        <div class="header-tools">
+          <button class="theme-toggle btn" type="button" aria-label="Switch to light theme" title="Switch colour theme">
+            <span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span>
+          </button>
+          <a class="btn only-guest signin-link" href="signin.html">Sign in</a>
+          <span class="user-chip only-user">
+            <span class="user-name" data-user-name></span>
+            <button class="btn" type="button" data-signout>Sign out</button>
+          </span>
+        </div>
       </div>
     </header>
     <main id="main">
@@ -139,6 +162,7 @@
             </section>
           </div>
           <aside class="join-aside" id="contact">
+            <p class="auth-note only-user">Signed in as <strong data-user-name></strong>. Your name and email are filled in for you.</p>
             <h2>About the form</h2>
             <p>This is a fan activity for our Web Technologies project. The form creates a fictional recruit card.</p>
             <h2 class="mt-4">Contact</h2>
@@ -166,10 +190,13 @@
               <b>Explore</b>
               <a href="about.html">Lore &amp; factions</a>
               <a href="titans.html">The Nine Titans</a>
+              <a href="characters.html">Character database</a>
               <a href="episodes.html">Episode guide</a>
+              <a href="index.html#faq">FAQ</a>
             </div>
             <div>
               <b>Contact &amp; connect</b>
+              <a href="signin.html">Sign in</a>
               <a href="join.html#contact">Contact the archive</a>
               <a href="https://shingeki.tv/" target="_blank" rel="noopener noreferrer">Official anime website ↗</a>
               <a href="https://x.com/anime_shingeki" target="_blank" rel="noopener noreferrer">Official X / Twitter ↗</a>
