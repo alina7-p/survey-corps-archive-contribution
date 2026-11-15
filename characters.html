@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Search and filter Attack on Titan characters with live data from the public Jikan API.">
+    <meta name="theme-color" content="#1e392a">
+    <title>Character database | Survey Corps Archive</title>
+    <script>
+      (function () {
+        var root = document.documentElement, theme = "dark", user = null;
+        root.className += " js";
+        try {
+          theme = localStorage.getItem("sca-theme") === "light" ? "light" : "dark";
+          user = JSON.parse(localStorage.getItem("sca-user") || "null");
+        } catch (error) {}
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-auth", user && user.name ? "in" : "out");
+      })();
+    </script>
+    <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="vendor/jquery.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/characters-fallback.js" defer></script>
+    <script src="js/characters.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/crest.svg" alt="" width="37" height="48">
+          <span>
+            <strong>SURVEY CORPS</strong>
+            <small>THE UNOFFICIAL ARCHIVE</small>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+          Menu +
+        </button>
+        <nav class="site-nav" id="main-navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">Lore &amp; factions</a>
+          <a href="titans.html">Titan archive</a>
+          <a href="characters.html" aria-current="page">Characters</a>
+          <a href="episodes.html">Episodes</a>
+          <a href="join.html" class="nav-enlist">Enlist</a>
+        </nav>
+        <div class="header-tools">
+          <button class="theme-toggle btn" type="button" aria-label="Switch to light theme" title="Switch colour theme">
+            <span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span>
+          </button>
+          <a class="btn only-guest signin-link" href="signin.html">Sign in</a>
+          <span class="user-chip only-user">
+            <span class="user-name" data-user-name></span>
+            <button class="btn" type="button" data-signout>Sign out</button>
+          </span>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-intro">
+        <div class="container">
+          <h1>Character database</h1>
+          <p class="lead mb-0">Live character data from public APIs (Jikan and AniList). Search, filter, sort, open a profile or refresh the data.</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="char-toolbar">
+            <div class="char-search">
+              <label class="visually-hidden" for="char-search">Search characters or voice actors</label>
+              <input class="form-control" id="char-search" type="search" placeholder="Search a character or voice actor…" autocomplete="off">
+            </div>
+            <div>
+              <label class="visually-hidden" for="char-sort">Sort characters</label>
+              <select class="form-select" id="char-sort">
+                <option value="favorites">Most popular</option>
+                <option value="name">Name A–Z</option>
+              </select>
+            </div>
+            <button class="btn" id="char-random" type="button" disabled>Random character</button>
+            <button class="btn btn-gold" id="char-refresh" type="button">Refresh data</button>
+          </div>
+          <div class="filter-buttons" role="group" aria-label="Filter by role">
+            <button type="button" class="btn active" data-role="all" aria-pressed="true">All</button>
+            <button type="button" class="btn" data-role="Main" aria-pressed="false">Main</button>
+            <button type="button" class="btn" data-role="Supporting" aria-pressed="false">Supporting</button>
+            <button type="button" class="btn only-user" data-role="favorites" aria-pressed="false">★ My favourites</button>
+          </div>
+          <div class="char-meta">
+            <p class="small-label muted" id="char-status" role="status">Loading characters…</p>
+            <p class="form-help only-guest"><a href="signin.html">Sign in</a> to save favourite characters.</p>
+          </div>
+          <div class="api-notice" id="char-notice" role="status" hidden></div>
+          <div class="api-error" id="char-error" role="alert" hidden>
+            <p id="char-error-text"></p>
+            <button class="btn btn-gold" id="char-retry" type="button">Try again</button>
+          </div>
+          <div class="char-grid" id="char-grid" aria-busy="true"></div>
+          <p class="empty-note" id="char-empty" hidden>No characters match. Try another search or filter.</p>
+          <div class="char-more"><button class="btn" id="char-more" type="button" hidden>Show more</button></div>
+          <noscript>
+            <p class="spoiler-note">Enable JavaScript to load characters from the API.</p>
+          </noscript>
+          <p class="table-footnote">
+            Data: <a href="https://jikan.moe/" target="_blank" rel="noopener noreferrer">Jikan API v4</a> (unofficial MyAnimeList API) and the <a href="https://anilist.gitbook.io/anilist-apiv2-docs/" target="_blank" rel="noopener noreferrer">AniList API</a>, anime “Shingeki no Kyojin”. Both are asked at once and the faster answer is shown. Character images belong to their rights holders. Results may change as the sites are updated.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-intro">
+            <a class="brand" href="index.html">
+              <img src="assets/crest.svg" alt="" width="37" height="48">
+              <span>
+                <strong>SURVEY CORPS</strong>
+                <small>THE UNOFFICIAL ARCHIVE</small>
+              </span>
+            </a>
+            <p>An unofficial Attack on Titan fan website. Web Technologies project, SE-2540.</p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <b>Explore</b>
+              <a href="about.html">Lore &amp; factions</a>
+              <a href="titans.html">The Nine Titans</a>
+              <a href="characters.html">Character database</a>
+              <a href="episodes.html">Episode guide</a>
+              <a href="index.html#faq">FAQ</a>
+            </div>
+            <div>
+              <b>Contact &amp; connect</b>
+              <a href="signin.html">Sign in</a>
+              <a href="join.html#contact">Contact the archive</a>
+              <a href="https://shingeki.tv/" target="_blank" rel="noopener noreferrer">Official anime website ↗</a>
+              <a href="https://x.com/anime_shingeki" target="_blank" rel="noopener noreferrer">Official X / Twitter ↗</a>
+              <a href="https://www.instagram.com/anime_shingeki_official" target="_blank" rel="noopener noreferrer">Official Instagram ↗</a>
+              <a href="about.html#credits">Sources &amp; credits</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Survey Corps Archive · SE-2540 student project.</span>
+          <span>Attack on Titan © Hajime Isayama / Kodansha and the anime
+            production committees. Unofficial fan site.</span>
+        </div>
+      </div>
+    </footer>
+    <dialog class="archive-dialog" id="char-dialog" aria-labelledby="char-dialog-name">
+      <button class="dialog-close" type="button" id="char-close" aria-label="Close character profile">Close ×</button>
+      <div class="char-dialog-body">
+        <img id="char-dialog-img" src="assets/crest.svg" alt="" width="220" height="293">
+        <div>
+          <h2 id="char-dialog-name">Character</h2>
+          <p class="small-label" id="char-dialog-meta"></p>
+          <h3 class="h6">Voice actors</h3>
+          <ul class="voice-list" id="char-dialog-voices"></ul>
+          <div class="dialog-actions">
+            <button class="btn only-user" type="button" id="char-dialog-fav" aria-pressed="false">☆ Add to favourites</button>
+            <a class="btn" id="char-dialog-link" href="#" target="_blank" rel="noopener noreferrer">View full profile ↗</a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>

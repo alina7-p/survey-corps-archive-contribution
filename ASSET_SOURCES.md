@@ -31,3 +31,13 @@ Images are stored locally, resized and compressed for the website. Character sti
 | `assets/images/wall-gate.jpg`             | Decorative view of a gate and city buildings; no particular Wall identified             | 1000 × 714  | [Image](https://shingeki.tv/season3/img/scene/scene_staff.jpg) · [Page](https://shingeki.tv/season3/staff/)                    |
 
 The three decorative city backgrounds (`wall-city.jpg`, `wall-street.jpg`, `wall-gate.jpg`) are used for atmosphere, not as canonical depictions of Maria, Rose or Sina. `hero.jpg` and `battle-shiganshina.jpg` use the same official panorama.
+
+## Data and character images from the API
+
+The Characters page loads names, popularity numbers, voice-actor names and character
+images at run time from the [Jikan API](https://jikan.moe/) (unofficial MyAnimeList API,
+`https://api.jikan.moe/v4/anime/16498/characters`). Those images are served from
+`cdn.myanimelist.net` and are not stored in this project. They belong to their rights holders.
+
+Backup source: the [AniList GraphQL API](https://anilist.co/) (`https://graphql.anilist.co`) is requested at
+the same time. Its images are served from `s4.anilist.co` and are not stored in this project.

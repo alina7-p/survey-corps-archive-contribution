@@ -6,6 +6,18 @@
     <meta name="description" content="Explore Attack on Titan: lore, characters, the Nine Titans and a season-by-season anime guide.">
     <meta name="theme-color" content="#1e392a">
     <title>Beyond the walls | Survey Corps Archive</title>
+    <script>
+      (function () {
+        var root = document.documentElement, theme = "dark", user = null;
+        root.className += " js";
+        try {
+          theme = localStorage.getItem("sca-theme") === "light" ? "light" : "dark";
+          user = JSON.parse(localStorage.getItem("sca-user") || "null");
+        } catch (error) {}
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-auth", user && user.name ? "in" : "out");
+      })();
+    </script>
     <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/fonts.css">
@@ -31,9 +43,20 @@
           <a href="index.html" aria-current="page">Home</a>
           <a href="about.html">Lore &amp; factions</a>
           <a href="titans.html">Titan archive</a>
+          <a href="characters.html">Characters</a>
           <a href="episodes.html">Episodes</a>
           <a href="join.html" class="nav-enlist">Enlist</a>
         </nav>
+        <div class="header-tools">
+          <button class="theme-toggle btn" type="button" aria-label="Switch to light theme" title="Switch colour theme">
+            <span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span>
+          </button>
+          <a class="btn only-guest signin-link" href="signin.html">Sign in</a>
+          <span class="user-chip only-user">
+            <span class="user-name" data-user-name></span>
+            <button class="btn" type="button" data-signout>Sign out</button>
+          </span>
+        </div>
       </div>
     </header>
     <main id="main">
@@ -41,6 +64,7 @@
         <img class="hero-art" src="assets/images/hero-keyvisual.jpg" alt="" width="1129" height="1600" fetchpriority="high">
         <div class="container hero-content">
           <h1 id="hero-heading">Survey Corps<br>Archive</h1>
+          <p class="welcome-line only-user">Welcome back, Scout <span data-user-name></span>.</p>
           <p class="intro">A student fan website about Attack on Titan. Read about the characters, Titans and story.</p>
           <div class="hero-actions">
             <a class="btn btn-gold" href="about.html">Explore the archive</a>
@@ -179,6 +203,109 @@
           </div>
         </div>
       </section>
+      <section class="section paper-section" id="faq" aria-labelledby="faq-heading">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <h2 id="faq-heading">Frequently asked questions</h2>
+            </div>
+            <p>Select a question to show or hide the answer.</p>
+          </div>
+          <div class="faq">
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q1" aria-expanded="false" aria-controls="faq-a1">
+                  <span>What is Attack on Titan?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1">
+                <div class="faq-answer-inner">
+                  <p>Attack on Titan (<i>Shingeki no Kyojin</i>) is a dark fantasy story by Hajime Isayama. The manga ran from 2009 to 2021 and was adapted into an anime. Humanity lives behind enormous walls, protected from man-eating giants called Titans.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
+                  <span>What are the Nine Titans?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2">
+                <div class="faq-answer-inner">
+                  <p>They are the nine special Titan powers passed from one inheritor to another: Founding, Attack, Colossal, Armored, Female, Beast, Jaw, Cart and War Hammer. Compare them in the <a href="titans.html">Titan archive</a>.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
+                  <span>What are the three walls?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3">
+                <div class="faq-answer-inner">
+                  <p>Wall Maria is the outermost wall, Wall Rose is the middle one and Wall Sina is the innermost. Most of the population lives in the districts they enclose.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
+                  <span>What is the Survey Corps?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4">
+                <div class="faq-answer-inner">
+                  <p>The Survey Corps is the military branch that ventures beyond the walls to explore and fight Titans. The Garrison Regiment guards the walls, and the Military Police keep order in the interior. Read more on the <a href="about.html#factions">lore page</a>.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
+                  <span>In what order should I watch the series?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5">
+                <div class="faq-answer-inner">
+                  <p>Watch Season 1, Season 2 and Season 3, then The Final Season and The Final Chapters specials. The <a href="episodes.html">episode guide</a> shows the main-series order.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q6" aria-expanded="false" aria-controls="faq-a6">
+                  <span>Is this website official?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a6" role="region" aria-labelledby="faq-q6">
+                <div class="faq-answer-inner">
+                  <p>No. It is an unofficial student fan project for the Web Technologies course. Attack on Titan belongs to its original rights holders; credits are listed on the <a href="about.html#credits">lore page</a>.</p>
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <h3 class="faq-heading">
+                <button class="faq-question" type="button" id="faq-q7" aria-expanded="false" aria-controls="faq-a7">
+                  <span>Where does the character data come from?</span>
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-a7" role="region" aria-labelledby="faq-q7">
+                <div class="faq-answer-inner">
+                  <p>The <a href="characters.html">Character database</a> loads live data from public APIs (Jikan, an unofficial interface to MyAnimeList, and AniList). You can search, filter, sort and refresh it. Signed-in users can also save favourites.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
     <footer class="site-footer">
       <div class="container">
@@ -198,10 +325,13 @@
               <b>Explore</b>
               <a href="about.html">Lore &amp; factions</a>
               <a href="titans.html">The Nine Titans</a>
+              <a href="characters.html">Character database</a>
               <a href="episodes.html">Episode guide</a>
+              <a href="index.html#faq">FAQ</a>
             </div>
             <div>
               <b>Contact &amp; connect</b>
+              <a href="signin.html">Sign in</a>
               <a href="join.html#contact">Contact the archive</a>
               <a href="https://shingeki.tv/" target="_blank" rel="noopener noreferrer">Official anime website ↗</a>
               <a href="https://x.com/anime_shingeki" target="_blank" rel="noopener noreferrer">Official X / Twitter ↗</a>

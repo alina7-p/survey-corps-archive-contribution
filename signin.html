@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sign in to the Survey Corps Archive to save favourite Attack on Titan characters.">
+    <meta name="theme-color" content="#1e392a">
+    <title>Sign in | Survey Corps Archive</title>
+    <script>
+      (function () {
+        var root = document.documentElement, theme = "dark", user = null;
+        root.className += " js";
+        try {
+          theme = localStorage.getItem("sca-theme") === "light" ? "light" : "dark";
+          user = JSON.parse(localStorage.getItem("sca-user") || "null");
+        } catch (error) {}
+        root.setAttribute("data-theme", theme);
+        root.setAttribute("data-auth", user && user.name ? "in" : "out");
+      })();
+    </script>
+    <link rel="icon" href="assets/crest.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="vendor/jquery.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/crest.svg" alt="" width="37" height="48">
+          <span>
+            <strong>SURVEY CORPS</strong>
+            <small>THE UNOFFICIAL ARCHIVE</small>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+          Menu +
+        </button>
+        <nav class="site-nav" id="main-navigation" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">Lore &amp; factions</a>
+          <a href="titans.html">Titan archive</a>
+          <a href="characters.html">Characters</a>
+          <a href="episodes.html">Episodes</a>
+          <a href="join.html" class="nav-enlist">Enlist</a>
+        </nav>
+        <div class="header-tools">
+          <button class="theme-toggle btn" type="button" aria-label="Switch to light theme" title="Switch colour theme">
+            <span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Light</span>
+          </button>
+          <a class="btn only-guest signin-link" href="signin.html" aria-current="page">Sign in</a>
+          <span class="user-chip only-user">
+            <span class="user-name" data-user-name></span>
+            <button class="btn" type="button" data-signout>Sign out</button>
+          </span>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-intro">
+        <div class="container">
+          <h1>Sign in</h1>
+          <p class="lead mb-0">Sign in to save favourite characters and see a personalised archive.</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container join-layout">
+          <div class="form-panel">
+            <div class="only-guest">
+              <h2>Scout sign-in</h2>
+              <p class="form-help mb-4">Demo sign-in without a server. Your display name and email are kept in this browser’s localStorage so you stay signed in after a reload. The password is only checked and is never saved.</p>
+              <form id="signin-form" novalidate>
+                <div class="mb-3">
+                  <label class="form-label" for="signin-name">Display name *</label>
+                  <input class="form-control" id="signin-name" name="name" type="text" required minlength="2" maxlength="30" autocomplete="nickname" placeholder="e.g. Scout Mikasa" aria-describedby="signin-name-feedback">
+                  <small class="field-feedback" id="signin-name-feedback" aria-live="polite"></small>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="signin-email">Email *</label>
+                  <input class="form-control" id="signin-email" name="email" type="email" required maxlength="120" autocomplete="email" placeholder="scout@example.com" aria-describedby="signin-email-feedback">
+                  <small class="field-feedback" id="signin-email-feedback" aria-live="polite"></small>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="signin-password">Password *</label>
+                  <input class="form-control" id="signin-password" name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="signin-password-help signin-password-feedback">
+                  <small class="field-feedback" id="signin-password-feedback" aria-live="polite"></small>
+                  <small class="form-help" id="signin-password-help">At least 8 characters, with a letter and a number.</small>
+                  <div class="form-check show-password">
+                    <input class="form-check-input" id="show-password" type="checkbox">
+                    <label class="form-check-label" for="show-password">Show password</label>
+                  </div>
+                </div>
+                <p id="signin-error" class="form-error" role="alert" hidden>Please check the highlighted fields.</p>
+                <div class="form-actions">
+                  <button class="btn btn-gold" type="submit">Sign in</button>
+                </div>
+              </form>
+              <noscript>
+                <p class="spoiler-note mt-3">Enable JavaScript to sign in.</p>
+              </noscript>
+            </div>
+            <div class="only-user">
+              <h2>Welcome, <span data-user-name></span>.</h2>
+              <p id="auth-status" role="status" tabindex="-1" class="auth-note">You are signed in.</p>
+              <dl class="profile-list">
+                <dt>Display name</dt><dd data-user-name></dd>
+                <dt>Email</dt><dd data-user-email></dd>
+                <dt>Signed in</dt><dd data-user-since></dd>
+                <dt>Saved favourites</dt><dd data-user-favorites>0</dd>
+              </dl>
+              <div class="form-actions">
+                <a class="btn btn-gold" href="characters.html">Browse characters</a>
+                <button class="btn" type="button" data-signout>Sign out</button>
+              </div>
+            </div>
+            <p id="signout-status" class="mt-3 only-guest" role="status" hidden>You have been signed out.</p>
+          </div>
+          <aside class="join-aside">
+            <h2>What signing in gives you</h2>
+            <p>Signed-in scouts see their name in the header, can star favourite characters in the Character database and get their details prefilled on the Enlist form.</p>
+            <h2 class="mt-4">Privacy</h2>
+            <p>Everything stays in your browser. Signing out removes the saved login. Your favourites are kept for the next time you sign in with the same email.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-intro">
+            <a class="brand" href="index.html">
+              <img src="assets/crest.svg" alt="" width="37" height="48">
+              <span>
+                <strong>SURVEY CORPS</strong>
+                <small>THE UNOFFICIAL ARCHIVE</small>
+              </span>
+            </a>
+            <p>An unofficial Attack on Titan fan website. Web Technologies project, SE-2540.</p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <b>Explore</b>
+              <a href="about.html">Lore &amp; factions</a>
+              <a href="titans.html">The Nine Titans</a>
+              <a href="characters.html">Character database</a>
+              <a href="episodes.html">Episode guide</a>
+              <a href="index.html#faq">FAQ</a>
+            </div>
+            <div>
+              <b>Contact &amp; connect</b>
+              <a href="signin.html">Sign in</a>
+              <a href="join.html#contact">Contact the archive</a>
+              <a href="https://shingeki.tv/" target="_blank" rel="noopener noreferrer">Official anime website ↗</a>
+              <a href="https://x.com/anime_shingeki" target="_blank" rel="noopener noreferrer">Official X / Twitter ↗</a>
+              <a href="https://www.instagram.com/anime_shingeki_official" target="_blank" rel="noopener noreferrer">Official Instagram ↗</a>
+              <a href="about.html#credits">Sources &amp; credits</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Survey Corps Archive · SE-2540 student project.</span>
+          <span>Attack on Titan © Hajime Isayama / Kodansha and the anime
+            production committees. Unofficial fan site.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
